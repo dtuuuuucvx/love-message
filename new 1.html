@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>For My Love 💕</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <style>
+    body {
+      background: linear-gradient(to right, #ff9a9e, #fad0c4);
+      font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+      color: #fff;
+      text-align: center;
+      padding: 50px;
+      margin: 0;
+      overflow: hidden;
+      position: relative;
+    }
+
+    h1 {
+      font-size: 3rem;
+      margin-bottom: 10px;
+    }
+
+    .heart {
+      font-size: 5rem;
+      animation: heartbeat 1s infinite;
+      color: red;
+      cursor: pointer;
+      transition: transform 0.3s ease;
+      z-index: 10;
+    }
+
+    .heart:hover {
+      transform: scale(1.3);
+    }
+
+    @keyframes heartbeat {
+      0%, 100% { transform: scale(1); }
+      50% { transform: scale(1.2); }
+    }
+
+    .message {
+      font-size: 1.5rem;
+      max-width: 600px;
+      margin: 40px auto 0;
+      opacity: 0;
+      transform: translateY(20px);
+      transition: all 0.7s ease;
+      visibility: hidden;
+    }
+
+    .message.show {
+      opacity: 1;
+      transform: translateY(0);
+      visibility: visible;
+    }
+
+    .floating-heart {
+      position: absolute;
+      font-size: 2rem;
+      animation: floatUp 4s ease-out forwards;
+      pointer-events: none;
+    }
+
+    @keyframes floatUp {
+      0% {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+      }
+      100% {
+        opacity: 0;
+        transform: translateY(-300px) scale(1.5);
+      }
+    }
+
+    .final-message,
+    .memories-message {
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      padding: 20px;
+      text-align: center;
+      background: #ffe4e1;
+      color: #d10068;
+      font-size: 2rem;
+      animation: fadeIn 2s ease;
+    }
+
+    .final-message h1,
+    .memories-message h1 {
+      font-size: 4rem;
+      margin-bottom: 20px;
+    }
+
+    .final-message a {
+      color: #d10068;
+      text-decoration: none;
+    }
+
+    .final-message a:hover {
+      text-decoration: underline;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; transform: scale(0.8); }
+      to { opacity: 1; transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+  <div id="mainContent">
+    <h1>معلش هنيجي عليكي شوية دوسي علي القلب</h1>
+    <div class="heart" onclick="handleHeartClick()">❤️</div>
+
+    <p id="loveMessage" class="message">
+      You are the light in my life, the joy in my heart, and the love I’ll cherish forever. This little surprise is just one way of saying: I LOVE YOU! 💖<br><br>
+      طبعا مفيش كلام يوصف حبي ليكي و مفيش كلام يوصف حلاوتك ولا انا هقدر اوفي كل حاجة في الكلام بس هنقول حاجة صغيرة كدا،<br>
+      انا بمووت فيكي ينوارتي بجد و عمري م شوفت حد بالحلاوة و القمر دا، ربنا يخليكي ليا يارب يا حبيبتي و ميحرمنيش منك أبداً ❤️
+    </p>
+  </div>
+
+  <script>
+    let clickCount = 0;
+
+    function handleHeartClick() {
+      clickCount++;
+
+      if (clickCount < 10) {
+        for (let i = 0; i < 10; i++) {
+          createFloatingHeart();
+        }
+      } else if (clickCount === 10) {
+        for (let i = 0; i < 30; i++) {
+          createFloatingHeart();
+        }
+        document.getElementById('loveMessage').classList.add('show');
+      } else if (clickCount === 11) {
+        // Final message with clickable love
+        document.body.innerHTML = `
+          <div class="final-message">
+            <h1><a href="#" onclick="showMemories(event)">❤️ I LOVE YOU ❤️</a></h1>
+            <p>كذا موقف عدا فى الامتحانات حسيت اني معايا ست البنات و ضهر بجد منهم قعدتك معايا علشان محسش اني مخنوق و قعدتك علشان تتفرجي علي الماتش و تيجي تحكيلي الي حصل علشان تخففي عني و حاجات كتير تانية </p>
+            <p>You’re my heart, my smile, my life.</p>
+            <p><em>Click the love to see something beautiful...</em></p>
+          </div>
+        `;
+      }
+    }
+
+    function showMemories(event) {
+      event.preventDefault();
+      document.body.innerHTML = `
+        <div class="memories-message">
+          <h1>All memories will be here stay tuned 💫</h1>
+          <p>More surprises are coming soon... ❤️</p>
+        </div>
+      `;
+    }
+
+    function createFloatingHeart() {
+      const heart = document.createElement('div');
+      heart.classList.add('floating-heart');
+      heart.textContent = ['💖','💘','💗','❤️'][Math.floor(Math.random() * 4)];
+      heart.style.left = Math.random() * 100 + "vw";
+      heart.style.bottom = "0px";
+      heart.style.fontSize = (Math.random() * 20 + 20) + "px";
+      document.body.appendChild(heart);
+
+      setTimeout(() => {
+        heart.remove();
+      }, 4000);
+    }
+  </script>
+</body>
+</html>
